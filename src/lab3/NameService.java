@@ -11,6 +11,9 @@ public class NameService {
     private static final int FIRST_NAME_IDX = 0;
     private static final int LAST_NAME_IDX = 1;
     
+    private static final String NULL_ERROR_MSG = "Data is invalid. Name cannot be null !";
+    private static final String ONE_WORD_ERROR_MSG = " Name is incomplete. \n Please enter both first name and second name ";
+    private static final String EMPTY_FIRST_NAME = "FirstName hasnot been entered. \n Please enter both first name and second name ";
     /**
      * Finds and returns the last name from within a full name. Caution: 
      * No validation is performed.
@@ -18,8 +21,16 @@ public class NameService {
      * @param fullName - a name containing a first name and a last name
      * @return the last name
      */
-    public String extractLastName(String fullName) {
+    public String extractLastName(String fullName) throws InvalidNameException{
+        if(fullName == null){ 
+            throw new InvalidNameException(NULL_ERROR_MSG); 
+        }
         String[] nameParts = fullName.split(" ");
+        // Validating no of words in string i.e  nameParts arrayLength has to be 2
+        if((nameParts.length < 2)){
+            throw new InvalidNameException(ONE_WORD_ERROR_MSG);
+        }
+        
         return nameParts[LAST_NAME_IDX];
     }
     
@@ -30,8 +41,19 @@ public class NameService {
      * @param fullName - a name containing a first name and a last name
      * @return the first name
      */
-    public String extractFirstName(String fullName) {
+    public String extractFirstName(String fullName)throws InvalidNameException {
+        if(fullName == null){ 
+            throw new IllegalArgumentException(NULL_ERROR_MSG); 
+        }
         String[] nameParts = fullName.split(" ");
+        // Validating no of words in string i.e  nameParts arrayLength has to be 2
+        // Preventing user from skipping entering first name i.e first string in array cannot be a space
+        if((nameParts.length < 2)){
+            throw new InvalidNameException(ONE_WORD_ERROR_MSG);
+        }
+        else if( nameParts[FIRST_NAME_IDX].equals("") ){
+            throw new InvalidNameException(EMPTY_FIRST_NAME); 
+        }
         return nameParts[FIRST_NAME_IDX];
     }
 

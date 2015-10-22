@@ -1,6 +1,7 @@
 package lab1;
 
 import javax.swing.JOptionPane;
+import lab3.InvalidNameException;
 
 /**
  * The purpose of this challenge is to give you practice time using
@@ -16,11 +17,14 @@ import javax.swing.JOptionPane;
  * @version 1.00
  */
 public class Challenge1 {
+    private static final int FIRST_NAME_IDX = 0;
     private static final int LAST_NAME_IDX = 1;
     private static final String JP_INPUT_MSG = "Enter full name (use Format: first last):";
     private static final String JP_OUTPUT_MSG = "Your last name is: " ;
     private static final String NULL_ERROR_MSG = "Data is invalid. Name cannot be null !";
-    private static final String ONE_WORD_ERROR_MSG = " Data is  invalid. \n Enter name in the Format specified : firstname lastname ";
+    private static final String ONE_WORD_ERROR_MSG = " Name is incomplete. \n Please enter both first name and last name ";
+    private static final String EMPTY_FIRST_NAME = "LastName has not been entered. \n Please enter both first name and last name ";
+    
     
     public static void main(String[] args) {
         Challenge1 app = new Challenge1();
@@ -40,7 +44,7 @@ public class Challenge1 {
     }
     
     public final String extractLastName(final String fullName) throws IllegalArgumentException {
-        System.out.println(fullName);
+      //  System.out.println(fullName);
         
         String lastName = "";
       
@@ -51,11 +55,15 @@ public class Challenge1 {
             String[] nameParts = fullName.split(" "); 
             
             // Validating no of words in string i.e  nameParts arrayLength has to be 2
-            // Preventing user from skipping entering first name i.e first string in array cannot be a space
-            if((nameParts.length != 2) || nameParts[0].equals("") ){
-                throw new IllegalArgumentException(ONE_WORD_ERROR_MSG);
+            if((nameParts.length < 2)){
+                throw new IllegalArgumentException (ONE_WORD_ERROR_MSG);
             }
-            lastName = nameParts[nameParts.length - 1];
+            // Preventing user from skipping entering only one name by using space i.e first string in array cannot be a space
+            else if( nameParts[FIRST_NAME_IDX].equals("") ){
+                throw new IllegalArgumentException(EMPTY_FIRST_NAME);
+            }
+            
+            lastName = nameParts[LAST_NAME_IDX];
    
         return lastName ;
         
