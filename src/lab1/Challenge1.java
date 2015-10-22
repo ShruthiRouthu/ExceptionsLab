@@ -19,28 +19,27 @@ public class Challenge1 {
     private static final int LAST_NAME_IDX = 1;
     private static final String JP_INPUT_MSG = "Enter full name (use Format: first last):";
     private static final String JP_OUTPUT_MSG = "Your last name is: " ;
-    private static final String NULL_ERROR_MSG = "Data is invalid. Please try again !";
-    private static final String ONE_WORD_ERROR_MSG = "Please enter  FIRST and LAST names !";
+    private static final String NULL_ERROR_MSG = "Data is invalid. Name cannot be null !";
+    private static final String ONE_WORD_ERROR_MSG = " Data is  invalid. \n Enter name in the Format specified : firstname lastname ";
     
     public static void main(String[] args) {
         Challenge1 app = new Challenge1();
-        String lastName;
-        
-        String fullName = JOptionPane.showInputDialog(JP_INPUT_MSG);
+    
         try{
-            lastName = app.extractLastName(fullName);
+            String fullName = JOptionPane.showInputDialog(JP_INPUT_MSG);
+            String lastName = app.extractLastName(fullName);
+            String msg = JP_OUTPUT_MSG + lastName;
+            JOptionPane.showMessageDialog(null, msg);
+             
         }catch(IllegalArgumentException iae){
             
-            String totalName = JOptionPane.showInputDialog(iae.getMessage() + "\n" + JP_INPUT_MSG);
-            lastName = app.extractLastName(totalName);
-            
+            JOptionPane.showMessageDialog(null, iae.getMessage() );          
         }
+       
         
-        String msg = JP_OUTPUT_MSG + lastName;
-        JOptionPane.showMessageDialog(null, msg);
     }
     
-    public final String extractLastName(final String fullName) {
+    public final String extractLastName(final String fullName) throws IllegalArgumentException {
         System.out.println(fullName);
         
         String lastName = "";
@@ -64,32 +63,5 @@ public class Challenge1 {
 
 }
 
-/* System.out.println(nameParts.length);
-            for(int i = 0; i< nameParts.length; i++){
-                 System.out.println(nameParts[i]);
-            }
-    
-    
- public static void main(String[] args) {
-        Challenge1 app = new Challenge1();
-        
-        String fullName = JOptionPane.showInputDialog("Enter full name (use Format: first last):");
-        System.out.println(fullName);
-        String lastName = app.extractLastName(fullName);
-        String msg = "Your last name is: " + lastName;
-        JOptionPane.showMessageDialog(null, msg);
-    }
-    
-    public String extractLastName(String fullName) {
-        String lastName = "";
-        if((fullName != null) && (fullName.length() > 0)  ){
-            String[] nameParts = fullName.split(" ");    
-            lastName = nameParts[nameParts.length - 1];
-        }
-        
-        
-        
-    }
 
-*/
 
