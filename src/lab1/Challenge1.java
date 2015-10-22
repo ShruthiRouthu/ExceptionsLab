@@ -28,18 +28,24 @@ public class Challenge1 {
     
     public static void main(String[] args) {
         Challenge1 app = new Challenge1();
-    
-        try{
-            String fullName = JOptionPane.showInputDialog(JP_INPUT_MSG);
-            String lastName = app.extractLastName(fullName);
-            String msg = JP_OUTPUT_MSG + lastName;
-            JOptionPane.showMessageDialog(null, msg);
-             
-        }catch(IllegalArgumentException iae){
-            
-            JOptionPane.showMessageDialog(null, iae.getMessage() );          
-        }
-       
+        boolean runAgain = false;
+        String lastName = null;
+        
+        do{
+            try{
+                String fullName = JOptionPane.showInputDialog(JP_INPUT_MSG);
+                lastName = app.extractLastName(fullName);
+                runAgain = false;
+                
+            }catch(IllegalArgumentException iae){
+                runAgain = true;
+                JOptionPane.showMessageDialog(null, iae.getMessage() ); 
+                
+            }
+        }while(runAgain);
+         
+        String msg = JP_OUTPUT_MSG + lastName;
+        JOptionPane.showMessageDialog(null, msg);
         
     }
     
@@ -63,7 +69,7 @@ public class Challenge1 {
                 throw new IllegalArgumentException(EMPTY_FIRST_NAME);
             }
             
-            lastName = nameParts[LAST_NAME_IDX];
+            lastName = nameParts[nameParts.length - 1];
    
         return lastName ;
         
