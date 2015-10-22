@@ -30,8 +30,10 @@ public class NameService {
         if((nameParts.length < 2)){
             throw new InvalidNameException(ONE_WORD_ERROR_MSG);
         }
-        
-        return nameParts[LAST_NAME_IDX];
+        else if( nameParts[FIRST_NAME_IDX].equals("") ){
+            throw new InvalidNameException(EMPTY_FIRST_NAME); 
+        }
+        return nameParts[nameParts.length - 1];
     }
     
     /**
